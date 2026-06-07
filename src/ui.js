@@ -94,6 +94,8 @@ export const PipelineUI = () => {
           nodeBorderRadius={4}
           maskColor="rgba(243, 244, 246, 0.7)"
           style={{ border: '1px solid #E5E7EB', borderRadius: '4px', backgroundColor: '#FFFFFF', bottom: 80, right: 16 }}
+          pannable={true}
+          zoomable={true}
         />
       </ReactFlow>
     </div>

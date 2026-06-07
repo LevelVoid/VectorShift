@@ -90,9 +90,10 @@ export const PipelineUI = () => {
         <Background color="#D1D5DB" gap={gridSize} size={1} />
         <Controls />
         <MiniMap
-          nodeColor={(node) => '#FFFFFF'}
+          nodeColor={(node) => NODE_CONFIGS[node.type]?.color || '#E5E7EB'}
+          nodeBorderRadius={4}
           maskColor="rgba(243, 244, 246, 0.7)"
-          style={{ border: '1px solid #E5E7EB', borderRadius: '4px' }}
+          style={{ border: '1px solid #E5E7EB', borderRadius: '4px', backgroundColor: '#FFFFFF', bottom: 80, right: 16 }}
         />
       </ReactFlow>
     </div>

@@ -57,7 +57,7 @@ export const SubmitButton = () => {
             transition: 'opacity 0.2s',
           }}
         >
-          {loading ? 'Analyzing...' : 'Analyze Pipeline'}
+          {loading ? 'Submitting...' : 'Submit'}
         </button>
       </div>
 

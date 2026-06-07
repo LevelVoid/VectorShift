@@ -22,27 +22,10 @@ function App() {
             fontWeight: 700, 
             letterSpacing: '-0.5px',
             color: '#000000',
-            fontFamily: 'serif' // closely matches the logo
+            fontFamily: 'serif'
           }}>
             VectorShift
           </div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <span style={{ fontSize: '14px', fontWeight: 500, cursor: 'pointer', color: '#4B5563' }}>
-            Log In
-          </span>
-          <button style={{
-            backgroundColor: '#000000',
-            color: '#FFFFFF',
-            border: 'none',
-            padding: '8px 16px',
-            borderRadius: '4px',
-            fontSize: '14px',
-            fontWeight: 500,
-            cursor: 'pointer'
-          }}>
-            Request Demo
-          </button>
         </div>
       </header>
 

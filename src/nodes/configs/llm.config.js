@@ -21,8 +21,8 @@ const llmConfig = {
       name: 'model',
       label: 'Model',
       type: 'select',
-      options: ['gpt-4o', 'gpt-4-turbo', 'claude-3-5-sonnet', 'gemini-pro'],
-      default: 'gpt-4o',
+      options: ['claude-sonnet-4.6', 'claude-opus-4.8', 'gemini-3.1-pro', 'gpt-5.1'],
+      default: 'claude-sonnet-4.6',
     },
   ],
 };

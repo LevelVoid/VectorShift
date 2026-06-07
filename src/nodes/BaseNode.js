@@ -145,7 +145,8 @@ export const BaseNode = ({ id, data, selected, nodeConfig }) => {
           key={handle.id}
           type="target"
           position={Position.Left}
-          id={`${id}-${handle.id}`}
+          id={handle.id}
+          isConnectable={true}
           style={{
             ...styles.handle,
             ...getHandleStyle(i, targetHandles.length),
@@ -174,7 +175,8 @@ export const BaseNode = ({ id, data, selected, nodeConfig }) => {
           key={handle.id}
           type="source"
           position={Position.Right}
-          id={`${id}-${handle.id}`}
+          id={handle.id}
+          isConnectable={true}
           style={{
             ...styles.handle,
             ...getHandleStyle(i, sourceHandles.length),
@@ -288,10 +290,11 @@ const styles = {
     transition: 'border-color 0.15s ease',
   },
   handle: {
-    width: 8,
-    height: 8,
+    width: 14,
+    height: 14,
     borderRadius: '50%',
     background: '#FFFFFF',
-    border: '1.5px solid #9CA3AF',
+    border: '2px solid #9CA3AF',
+    cursor: 'crosshair',
   },
 };

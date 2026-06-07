@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Handle, Position } from 'reactflow';
 import { useStore } from '../store';
 
@@ -22,10 +22,7 @@ const getHandleStyle = (index, total) => ({
   top: `${((index + 1) / (total + 1)) * 100}%`,
 });
 
-const computeWidth = (text, base = 260) => {
-  const maxLineLen = Math.max(...(text || '').split('\n').map((l) => l.length), 0);
-  return Math.min(480, Math.max(base, maxLineLen * 8 + 48));
-};
+
 
 export const BaseNode = ({ id, data, selected, nodeConfig }) => {
   const updateNodeField = useStore((s) => s.updateNodeField);
@@ -39,10 +36,7 @@ export const BaseNode = ({ id, data, selected, nodeConfig }) => {
       : []
   );
 
-  const [nodeWidth, setNodeWidth] = useState(() => {
-    if (!dynamicField) return null;
-    return computeWidth(data[dynamicField.name] ?? dynamicField.default ?? '');
-  });
+
 
   const handleChange = useCallback(
     (fieldName, value, field) => {
@@ -50,11 +44,23 @@ export const BaseNode = ({ id, data, selected, nodeConfig }) => {
 
       if (field?.dynamicHandles) {
         setDynamicVars(extractVariables(value));
-        setNodeWidth(computeWidth(value));
       }
     },
     [id, updateNodeField]
   );
+
+  // Auto-resize textareas on initial render and data changes
+  useEffect(() => {
+    (nodeConfig.fields || []).forEach((field) => {
+      if (field.type === 'textarea') {
+        const el = textareaRefs.current[field.name];
+        if (el) {
+          el.style.height = 'auto';
+          el.style.height = `${el.scrollHeight}px`;
+        }
+      }
+    });
+  }, [data, nodeConfig.fields]);
 
   const renderField = (field) => {
     const value = data[field.name] ?? field.default ?? '';
@@ -127,7 +133,6 @@ export const BaseNode = ({ id, data, selected, nodeConfig }) => {
     <div
       style={{
         ...styles.node,
-        ...(nodeWidth ? { width: nodeWidth } : {}),
         borderColor: selected ? '#6C63FF' : '#D1D5DB', // Highlight with VectorShift purple
         boxShadow: selected
           ? `0 0 0 1px #6C63FF, 0 4px 12px rgba(0,0,0,0.08)`
@@ -183,7 +188,7 @@ export const BaseNode = ({ id, data, selected, nodeConfig }) => {
 
 const styles = {
   node: {
-    minWidth: 260,
+    width: 280,
     background: '#FFFFFF',
     border: '1px solid #D1D5DB',
     borderRadius: 8,
@@ -219,7 +224,7 @@ const styles = {
     userSelect: 'none',
   },
   body: {
-    padding: '16px',
+    padding: '12px 16px',
     display: 'flex',
     flexDirection: 'column',
     gap: '12px',
@@ -235,13 +240,13 @@ const styles = {
     color: '#6B7280',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
-    marginBottom: 6,
+    marginBottom: 4,
     userSelect: 'none',
   },
   input: {
     width: '100%',
     fontSize: 13,
-    padding: '8px 10px',
+    padding: '10px 12px',
     background: '#FFFFFF',
     border: '1px solid #D1D5DB',
     borderRadius: 4,
@@ -254,7 +259,7 @@ const styles = {
   select: {
     width: '100%',
     fontSize: 13,
-    padding: '8px 10px',
+    padding: '10px 12px',
     background: '#FFFFFF',
     border: '1px solid #D1D5DB',
     borderRadius: 4,
@@ -269,7 +274,7 @@ const styles = {
     width: '100%',
     minHeight: 60,
     fontSize: 13,
-    padding: '8px 10px',
+    padding: '10px 12px',
     background: '#FFFFFF',
     border: '1px solid #D1D5DB',
     borderRadius: 4,

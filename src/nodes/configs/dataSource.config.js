@@ -9,9 +9,11 @@
 // Example flow:
 //   [Data Source: Market API] ──→ [Text: "Analyze {{data}} for {{query}}"] ──→ [LLM]
 
+import { Database } from 'lucide-react';
+
 const dataSourceConfig = {
   title: 'Data Source',
-  icon: '🔌',
+  icon: <Database size={16} />,
   color: '#06B6D4',
   category: 'Plugin',
   inputs: [

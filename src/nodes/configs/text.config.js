@@ -11,9 +11,11 @@
 // prompts like "Analyze {{data}} regarding {{query}}" and then wire the
 // {{data}} and {{query}} handles to upstream nodes (e.g. Data Source + Input).
 
+import { Type } from 'lucide-react';
+
 const textConfig = {
   title: 'Text',
-  icon: '✏️',
+  icon: <Type size={16} />,
   color: '#F59E0B',
   category: 'Core',
   inputs: [],        // populated dynamically by BaseNode from {{var}} parsing
@@ -24,8 +26,8 @@ const textConfig = {
       label: 'Text',
       type: 'textarea',
       dynamicHandles: true,
-      default: '{{input}}',
-      placeholder: 'Use {{variable}} to create input handles',
+      default: '',
+      placeholder: 'e.g. Analyze {{data}} for the query: {{query}}',
     },
   ],
 };

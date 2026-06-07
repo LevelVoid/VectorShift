@@ -2,9 +2,11 @@
 // Config for the Input node — entry point of a pipeline.
 // Provides a named value (text or file) downstream.
 
+import { LogIn } from 'lucide-react';
+
 const inputConfig = {
   title: 'Input',
-  icon: '⬇',
+  icon: <LogIn size={16} />,
   color: '#22D3EE',
   category: 'Core',
   inputs: [],
@@ -14,7 +16,7 @@ const inputConfig = {
       name: 'inputName',
       label: 'Name',
       type: 'text',
-      default: 'input_1',
+      default: '',
       placeholder: 'e.g. user_query',
     },
     {

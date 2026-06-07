@@ -2,9 +2,11 @@
 // Config for the LLM node — the AI reasoning engine.
 // Accepts a system prompt and a user prompt; returns the model's response.
 
+import { BrainCircuit } from 'lucide-react';
+
 const llmConfig = {
   title: 'LLM',
-  icon: '🤖',
+  icon: <BrainCircuit size={16} />,
   color: '#6C63FF',
   category: 'Core',
   inputs: [

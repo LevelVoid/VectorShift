@@ -1,10 +1,3 @@
-// ui.js
-// Displays the drag-and-drop pipeline canvas.
-//
-// nodeTypes is derived at MODULE LEVEL from NODE_CONFIGS so ReactFlow
-// always sees stable component references — no "new nodeTypes object"
-// warning and no unnecessary node re-renders.
-
 import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from './store';
@@ -17,10 +10,6 @@ import 'reactflow/dist/style.css';
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
 
-// ─── Stable nodeTypes ────────────────────────────────────────────────────────
-// Built once at module load. Each entry binds a config to BaseNode via closure.
-// Being at module level (not inside a component or hook) guarantees the object
-// reference never changes across renders — this is what ReactFlow requires.
 const nodeTypes = Object.fromEntries(
   Object.entries(NODE_CONFIGS).map(([type, config]) => {
     const BoundNode = (props) => <BaseNode {...props} nodeConfig={config} />;
@@ -45,11 +34,6 @@ export const PipelineUI = () => {
   const { nodes, edges, getNodeID, addNode, onNodesChange, onEdgesChange, onConnect } =
     useStore(selector, shallow);
 
-  /**
-   * Initialise a new node's data with field defaults from its config.
-   * Without this, fields would show config defaults visually but the store
-   * would have no record of them until the user interacts.
-   */
   const getInitNodeData = (nodeID, type) => {
     const config = NODE_CONFIGS[type];
     const fieldDefaults = {};
@@ -79,7 +63,7 @@ export const PipelineUI = () => {
       const nodeID = getNodeID(type);
       addNode({ id: nodeID, type, position, data: getInitNodeData(nodeID, type) });
     },
-    [reactFlowInstance]
+    [reactFlowInstance, addNode, getNodeID]
   );
 
   const onDragOver = useCallback((event) => {
@@ -88,7 +72,7 @@ export const PipelineUI = () => {
   }, []);
 
   return (
-    <div ref={reactFlowWrapper} style={{ width: '100vw', height: '70vh' }}>
+    <div ref={reactFlowWrapper} style={{ width: '100%', height: '100%' }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -101,13 +85,14 @@ export const PipelineUI = () => {
         nodeTypes={nodeTypes}
         proOptions={proOptions}
         snapGrid={[gridSize, gridSize]}
-        connectionLineType="smoothstep"
+        connectionLineType="straight"
       >
-        <Background color="#2D3348" gap={gridSize} />
+        <Background color="#D1D5DB" gap={gridSize} size={1} />
         <Controls />
         <MiniMap
-          nodeColor={(node) => NODE_CONFIGS[node.type]?.color ?? '#555'}
-          maskColor="rgba(13,15,20,0.7)"
+          nodeColor={(node) => '#FFFFFF'}
+          maskColor="rgba(243, 244, 246, 0.7)"
+          style={{ border: '1px solid #E5E7EB', borderRadius: '4px' }}
         />
       </ReactFlow>
     </div>

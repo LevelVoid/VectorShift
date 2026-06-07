@@ -1,7 +1,3 @@
-// draggableNode.js
-// A single draggable chip in the toolbar.
-// Reads icon and color from the node's config — no hardcoded values.
-
 export const DraggableNode = ({ type, config }) => {
   const onDragStart = (event) => {
     event.target.style.cursor = 'grabbing';
@@ -18,23 +14,36 @@ export const DraggableNode = ({ type, config }) => {
       title={config.title}
       style={{
         cursor: 'grab',
-        minWidth: 80,
-        height: 60,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        gap: 4,
-        borderRadius: 8,
-        background: '#1A1F2E',
-        border: `1px solid ${config.color}`,
+        padding: '10px 12px',
+        borderRadius: '6px',
         userSelect: 'none',
-        fontFamily: 'Inter, system-ui, sans-serif',
-        transition: 'transform 0.1s ease, box-shadow 0.1s ease',
+        transition: 'background-color 0.15s ease',
       }}
+      onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#E5E7EB'}
+      onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
     >
-      <span style={{ fontSize: 18, lineHeight: 1 }}>{config.icon}</span>
-      <span style={{ color: '#E2E8F0', fontSize: 11, fontWeight: 500 }}>{config.title}</span>
+      {/* Icon */}
+      <span style={{ 
+        fontSize: '16px', 
+        marginRight: '12px', 
+        display: 'flex', 
+        alignItems: 'center', 
+        color: '#4B5563',
+        width: '20px',
+        justifyContent: 'center'
+      }}>
+        {config.icon}
+      </span>
+      {/* Label */}
+      <span style={{ 
+        color: 'var(--vs-text)', 
+        fontSize: '14px', 
+        fontWeight: 500 
+      }}>
+        {config.title}
+      </span>
     </div>
   );
 };
